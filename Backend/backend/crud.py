@@ -9,11 +9,6 @@ from .ai.priority import get_priority
 from .ai.duplicate import genuine_score
 from .ai.department import assign_department
 
-
-# ======================================================
-# USER CRUD
-# ======================================================
-
 def create_user(db: Session, name: str, email: str, password: str):
     user = models.User(
         name=name,
@@ -46,9 +41,9 @@ def get_all_users(db: Session):
     return db.query(models.User).all()
 
 
-# ======================================================
-# CREATE COMPLAINT
-# ======================================================
+# ==================
+# Creating complaint
+# ==================
 
 def create_complaint(db: Session, complaint):
 
@@ -116,19 +111,17 @@ def create_complaint(db: Session, complaint):
 
     return new_complaint
 
-
-# ======================================================
-# GET ALL COMPLAINTS
-# ======================================================
+# =================================================
+# Get all complaints
+# ==================================================
 
 def get_complaints(db: Session):
 
     return db.query(models.Complaint).all()
 
-
-# ======================================================
-# GET COMPLAINT BY ID
-# ======================================================
+# ===================
+# Get complaint by ID
+# ===================
 
 def get_complaint(db: Session, complaint_id: int):
 
@@ -138,7 +131,7 @@ def get_complaint(db: Session, complaint_id: int):
 
 
 # ======================================================
-# UPDATE COMPLAINT
+# Update complaint
 # ======================================================
 
 def update_complaint(
@@ -198,14 +191,14 @@ def update_complaint(
 
     return complaint
 
-# ======================================================
-# UPDATE STATUS
-# ======================================================
+# ==========================================
+# Update status
+# ==========================================
 
 
-# ======================================================
+# ==================================================
 # DELETE COMPLAINT
-# ======================================================
+# ==================================================
 
 def delete_complaint(
         db: Session,
@@ -228,7 +221,7 @@ def delete_complaint(
 
 # ======================================================
 # DASHBOARD COUNTS
-# ======================================================
+# ==========================================================
 
 def total_complaints(db: Session):
 
@@ -355,7 +348,6 @@ def category_statistics(db):
         for c, count in data
     ]
 
-
 def department_statistics(db):
 
     data = db.query(
@@ -381,7 +373,6 @@ def department_statistics(db):
 
     ]
 
-
 def priority_statistics(db):
 
     data = db.query(
@@ -406,7 +397,6 @@ def priority_statistics(db):
         for p, c in data
 
     ]
-
 
 def status_statistics(db):
 
@@ -470,7 +460,6 @@ def get_admin_by_email(db: Session, email: str):
         models.Admin.email == email
     ).first()
 
-
 def delete_admin(db: Session, admin_id: int):
 
     admin = get_admin(db, admin_id)
@@ -482,12 +471,10 @@ def delete_admin(db: Session, admin_id: int):
         db.commit()
 
     return admin
-#*******************************************
-#FEEDBACK
-#*******************************************
-# ======================================================
-# FEEDBACK CRUD
-# ======================================================
+    
+#********
+#Feedback
+#********
 
 def create_feedback(db: Session, feedback):
 
@@ -521,8 +508,6 @@ def get_feedback(db: Session, feedback_id: int):
         models.Feedback.id == feedback_id
     ).first()
 
-
-# NEW
 def delete_feedback(db: Session, feedback_id: int):
 
     feedback = get_feedback(db, feedback_id)
