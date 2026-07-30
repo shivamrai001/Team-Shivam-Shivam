@@ -1,7 +1,5 @@
 def classify(description: str):
-
     text = description.lower()
-
     if any(word in text for word in [
         "garbage",
         "waste",
@@ -9,7 +7,6 @@ def classify(description: str):
         "trash"
     ]):
         return "Garbage"
-
     elif any(word in text for word in [
         "road",
         "pothole",
@@ -17,7 +14,6 @@ def classify(description: str):
         "highway"
     ]):
         return "Road"
-
     elif any(word in text for word in [
         "water",
         "pipe",
@@ -25,19 +21,16 @@ def classify(description: str):
         "drain"
     ]):
         return "Water"
-
     elif any(word in text for word in [
         "light",
         "electric",
         "pole"
     ]):
         return "Electricity"
-
     elif any(word in text for word in [
         "tree",
         "park",
         "forest"
     ]):
         return "Environment"
-
     return "Other"
