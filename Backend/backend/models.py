@@ -11,9 +11,9 @@ from sqlalchemy.orm import relationship
 from .database import Base
 
 
-# ==========================================
-# USER TABLE
-# ==========================================
+# ==========
+# User Table
+# ==========
 
 class User(Base):
 
@@ -34,10 +34,9 @@ class User(Base):
         cascade="all, delete"
     )
 
-
-# ==========================================
-# COMPLAINT TABLE
-# ==========================================
+# ===============
+# Complaint Table
+# ===============
 
 class Complaint(Base):
 
@@ -89,9 +88,9 @@ class Complaint(Base):
         back_populates="complaints"
     )
 
-# ==========================================
-# ADMIN TABLE
-# ==========================================
+# ===========
+# Admin Table
+# ===========
 
 class Admin(Base):
 
@@ -110,10 +109,9 @@ class Admin(Base):
 
     role = Column(String)
 
-
-# ==========================================
+# ==============
 # FEEDBACK TABLE
-# ==========================================
+# ==============
 
 class Feedback(Base):
 
@@ -130,10 +128,9 @@ class Feedback(Base):
 
     feedback = Column(String)
 
-
-# ==========================================
-# NOTIFICATION TABLE
-# ==========================================
+# ==================
+# Notification Table
+# ==================
 
 class Notification(Base):
 
