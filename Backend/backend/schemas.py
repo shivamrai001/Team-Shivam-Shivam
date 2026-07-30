@@ -1,20 +1,17 @@
 from pydantic import BaseModel, EmailStr
 
-
-# ==================================================
-# USER SCHEMAS
-# ==================================================
+# ====================
+# User related schemas
+# ====================
 
 class UserCreate(BaseModel):
     name: str
     email: EmailStr
     password: str
 
-
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
-
 
 class UserResponse(BaseModel):
     id: int
@@ -24,10 +21,9 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
-# ==================================================
-# COMPLAINT SCHEMAS
-# ==================================================
+# =========================
+# Complaint-related schemas
+# =========================
 class ComplaintCreate(BaseModel):
     user_id: int
     title: str
@@ -35,7 +31,6 @@ class ComplaintCreate(BaseModel):
     image_path: str
     latitude: float
     longitude: float
-
 
 class ComplaintUpdate(BaseModel):
     title: str | None = None
@@ -82,10 +77,9 @@ class ComplaintResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
-# ==================================================
-# ADMIN SCHEMAS
-# ==================================================
+# =============
+# Admin Schemas
+# =============
 
 class AdminCreate(BaseModel):
 
@@ -111,10 +105,9 @@ class AdminResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
-# ==================================================
-# FEEDBACK SCHEMAS
-# ==================================================
+# ================
+# Feedback Schemas
+# ================
 
 class FeedbackCreate(BaseModel):
 
@@ -138,10 +131,9 @@ class FeedbackResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
-# ==================================================
-# NOTIFICATION SCHEMAS
-# ==================================================
+# ====================
+# Notification Schemas
+# ====================
 
 class NotificationCreate(BaseModel):
 
@@ -152,7 +144,6 @@ class NotificationCreate(BaseModel):
     complaint_id: int
 
     created_at: str
-
 
 class NotificationResponse(BaseModel):
 
