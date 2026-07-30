@@ -26,9 +26,9 @@ app = FastAPI(
     description="AI Powered Smart Complaint Management System"
 )
 
-# ==========================
+# =====================
 # Serve Uploaded Images
-# ==========================
+# =====================
 
 app.mount(
     "/upload",
@@ -36,9 +36,9 @@ app.mount(
     name="upload"
 )
 
-# ==========================
+# ==========
 # Home Route
-# ==========================
+# ==========
 
 @app.get("/")
 def home():
@@ -47,9 +47,9 @@ def home():
         "version": "3.0.0"
     }
 
-# ==========================
+# ===============
 # Include Routers
-# ==========================
+# ===============
 
 app.include_router(users.router)
 app.include_router(complaints.router)
@@ -62,13 +62,13 @@ app.include_router(notifications.router)
 app.include_router(uploads.router)
 app.include_router(auth.router)
 
-# ==========================================
+# ========
 # Home API
-# ==========================================
+# ========
 
-# ==========================================
+# ================
 # Health Check API
-# ==========================================
+# ================
 
 @app.get("/health")
 def health():
@@ -78,9 +78,9 @@ def health():
         "server": "Running"
     }
 
-# ==========================================
+# ===============
 # API Information
-# ==========================================
+# ===============
 
 @app.get("/info")
 def info():
