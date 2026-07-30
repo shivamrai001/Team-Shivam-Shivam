@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 # importing from database
 from .database import Base, engine
 # importing models
@@ -16,6 +17,17 @@ app = FastAPI(
     title="UrbanSense AI Backend",
     description="AI Powered Smart Complaint Management System",
     version="1.0.0"
+)
+# ******************************************
+# CORS — allow the frontend (opened as a local file or served
+# from any origin) to call this API from the browser
+# ==========================================
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 # ******************************************
 # Registering Routers
