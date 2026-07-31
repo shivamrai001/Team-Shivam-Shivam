@@ -1,105 +1,93 @@
-from datetime import timedelta
-
-from fastapi import APIRouter, Depends, HTTPException
+from datetime import datetime, timedelta, timezone
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
-from ..database import get_db
-from .. import schemas, crud
-from ..security import hash_password
-from ..auth import (
-    authenticate_user,
-    create_access_token,
-    get_current_user
-)
-from ..config import ACCESS_TOKEN_EXPIRE_MINUTES
+# Absolute imports from the root directory
+from database import get_db
+import crud
+import schemas
+from security import verify_password
+from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
-router = APIRouter(
-    prefix="/auth",
-    tags=["Authentication"]
-)
+router = APIRouter()
+
+# Matches the prefix="/api/auth" registered in main.py
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 
 # ==========================================
-# Register
+# Authenticate User Helper
 # ==========================================
 
-@router.post("/register")
-def register(
-    user: schemas.UserCreate,
-    db: Session = Depends(get_db)
-):
-
-    existing = crud.get_user_by_email(
-        db,
-        user.email
-    )
-
-    if existing:
-
-        raise HTTPException(
-            status_code=400,
-            detail="Email already registered"
-        )
-
-    hashed = hash_password(
-        user.password
-    )
-
-    new_user = crud.create_user(
-        db=db,
-        name=user.name,
-        email=user.email,
-        password=hashed
-    )
-
-    return {
-        "message": "User registered successfully",
-        "user": new_user
-    }
+def authenticate_user(db: Session, email: str, password: str):
+    user = crud.get_user_by_email(db, email)
+    if user is None or not verify_password(password, user.password):
+        return None
+    return user
 
 
 # ==========================================
-# Login
+# Create JWT Token
+# ==========================================
+
+def create_access_token(data: dict, expires_delta: timedelta | None = None):
+    to_encode = data.copy()
+    
+    # Use timezone-aware UTC datetime
+    expire = datetime.now(timezone.utc) + (
+        expires_delta if expires_delta else timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+    to_encode.update({"exp": expire})
+    
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+# ==========================================
+# Login Route
 # ==========================================
 
 @router.post("/login")
-def login(
-    user: schemas.UserLogin,
-    db: Session = Depends(get_db)
-):
-
-    db_user = authenticate_user(
-        db,
-        user.email,
-        user.password
-    )
-
-    if not db_user:
-
+def login_user(data: schemas.UserLogin, db: Session = Depends(get_db)):
+    user = authenticate_user(db, data.email, data.password)
+    if user is None:
         raise HTTPException(
-            status_code=401,
-            detail="Invalid email or password"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+            headers={"WWW-Authenticate": "Bearer"},
         )
 
     access_token = create_access_token(
-        data={"sub": db_user.email},
-        expires_delta=timedelta(
-            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
-        )
+        data={"sub": user.email, "id": user.id, "role": user.role}
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+# ==========================================
+# Get Current Logged-in User
+# ==========================================
+
+def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db)
+):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
     )
 
-    return {
-        "access_token": access_token,
-        "token_type": "bearer",
-        "role": db_user.role
-    }
-# ==========================================
-# Current User
-# ==========================================
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
 
-@router.get("/me")
-def get_me(
-    current_user=Depends(get_current_user)
-):
+    user = crud.get_user_by_email(db, email)
+    if user is None:
+        raise credentials_exception
 
-    return current_user
+    return user
