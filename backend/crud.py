@@ -452,18 +452,15 @@ def highest_severity(db: Session):
 #ADMIN
 #****************************************
 def create_admin(db: Session, admin):
-
     new_admin = models.Admin(
         name=admin.name,
         email=admin.email,
-        password=admin.password,
+        password=hash_password(admin.password),  # Hashes password securely
         role="admin"
     )
-
     db.add(new_admin)
     db.commit()
     db.refresh(new_admin)
-
     return new_admin
 def get_all_admins(db: Session):
 
