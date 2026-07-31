@@ -42,12 +42,14 @@ app.add_middleware(
 import os
 
 UPLOAD_DIR = "backend/upload"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+try:
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+except OSError:
+    pass
 
 if os.path.isdir(UPLOAD_DIR):
     app.mount("/upload", StaticFiles(directory=UPLOAD_DIR), name="upload")
-
-
 # ==========================
 # Home Route
 # ==========================
