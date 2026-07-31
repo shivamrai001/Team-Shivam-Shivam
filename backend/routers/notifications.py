@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from ..database import get_db
-from .. import models, schemas
+from database import get_db
+import crud
+import schemas
 
 router = APIRouter(
     prefix="/notifications",
@@ -18,10 +19,7 @@ def create_notification(
     notification: schemas.NotificationCreate,
     db: Session = Depends(get_db)
 ):
-
-    complaint = db.query(models.Complaint).filter(
-        models.Complaint.id == notification.complaint_id
-    ).first()
+    complaint = crud.get_complaint(db, notification.complaint_id)
 
     if complaint is None:
         raise HTTPException(
@@ -29,16 +27,7 @@ def create_notification(
             detail="Complaint not found"
         )
 
-    new_notification = models.Notification(
-        title=notification.title,
-        message=notification.message,
-        complaint_id=notification.complaint_id,
-        created_at=notification.created_at
-    )
-
-    db.add(new_notification)
-    db.commit()
-    db.refresh(new_notification)
+    new_notification = crud.create_notification(db, notification)
 
     return {
         "message": "Notification created successfully",
@@ -50,10 +39,8 @@ def create_notification(
 # Get All Notifications
 # ------------------------------------
 @router.get("/")
-def get_all_notifications(
-    db: Session = Depends(get_db)
-):
-    return db.query(models.Notification).all()
+def get_all_notifications(db: Session = Depends(get_db)):
+    return crud.get_all_notifications(db)
 
 
 # ------------------------------------
@@ -64,10 +51,7 @@ def get_notification(
     notification_id: int,
     db: Session = Depends(get_db)
 ):
-
-    notification = db.query(models.Notification).filter(
-        models.Notification.id == notification_id
-    ).first()
+    notification = crud.get_notification(db, notification_id)
 
     if notification is None:
         raise HTTPException(
@@ -86,19 +70,13 @@ def delete_notification(
     notification_id: int,
     db: Session = Depends(get_db)
 ):
-
-    notification = db.query(models.Notification).filter(
-        models.Notification.id == notification_id
-    ).first()
+    notification = crud.delete_notification(db, notification_id)
 
     if notification is None:
         raise HTTPException(
             status_code=404,
             detail="Notification not found"
         )
-
-    db.delete(notification)
-    db.commit()
 
     return {
         "message": "Notification deleted successfully"
