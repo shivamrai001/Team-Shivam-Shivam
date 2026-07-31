@@ -11,11 +11,10 @@ router = APIRouter(
 
 UPLOAD_FOLDER = "backend/upload"
 
-   try:
-       os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-   except OSError:
-       pass
-
+try:
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+except OSError:
+    pass
 
 # ==========================================
 # Upload Image
