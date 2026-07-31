@@ -5,6 +5,21 @@
 ### 🚀 Intelligent Smart City Complaint Management System
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3000&pause=1000&color=00D4FF&center=true&vCenter=true&width=700&lines=Welcome+to+UrbanSense+AI;Making+Cities+Smarter+with+AI;AI-Powered+Complaint+Management;Built+using+Flutter+%7C+FastAPI+%7C+Python"/>
+---
+
+# 📱 Application Preview
+
+<div align="center">
+
+### UrbanSense AI 2.0 – Citizen Home Screen
+
+<img src="https://github.com/shivamrai001/Team-Shivam-Shivam/blob/main/screenshot/Screenshot%202026-07-31%20111130_edited.png?raw=true" alt="UrbanSense AI Home Screen" width="350"/>
+
+**UrbanSense AI 2.0 Home Screen – Citizens can report civic issues, track complaint status, receive notifications, access analytics, and manage their profile through a clean and intuitive interface.**
+
+</div>
+
+---
 
 <p>
 
