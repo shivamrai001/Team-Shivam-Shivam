@@ -46,7 +46,7 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 if os.path.isdir(UPLOAD_DIR):
     app.mount("/upload", StaticFiles(directory=UPLOAD_DIR), name="upload")
-)
+
 
 # ==========================
 # Home Route
