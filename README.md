@@ -190,30 +190,66 @@ The AI pipeline significantly reduces manual intervention while improving respon
 
 ## Languages & Frameworks
 
-<img src="https://skillicons.dev/icons?i=flutter,dart,python,fastapi"/>
+<p>
+<a href="https://flutter.dev/" target="_blank">
+<img src="https://skillicons.dev/icons?i=flutter" alt="Flutter"/>
+</a>
+
+<a href="https://dart.dev/" target="_blank">
+<img src="https://skillicons.dev/icons?i=dart" alt="Dart"/>
+</a>
+
+<a href="https://www.python.org/" target="_blank">
+<img src="https://skillicons.dev/icons?i=python" alt="Python"/>
+</a>
+
+<a href="https://fastapi.tiangolo.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=fastapi" alt="FastAPI"/>
+</a>
+</p>
 
 ## Database & Cloud
 
-<img src="https://skillicons.dev/icons?i=firebase,postgresql"/>
+<p>
+<a href="https://firebase.google.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=firebase" alt="Firebase"/>
+</a>
+
+<a href="https://www.postgresql.org/" target="_blank">
+<img src="https://skillicons.dev/icons?i=postgresql" alt="PostgreSQL"/>
+</a>
+</p>
 
 ## Development Tools
 
-<img src="https://skillicons.dev/icons?i=git,github,vscode"/>
+<p>
+<a href="https://git-scm.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=git" alt="Git"/>
+</a>
+
+<a href="https://github.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=github" alt="GitHub"/>
+</a>
+
+<a href="https://code.visualstudio.com/" target="_blank">
+<img src="https://skillicons.dev/icons?i=vscode" alt="VS Code"/>
+</a>
+</p>
 
 </div>
 
 | Category | Technology |
 |-----------|------------|
-| Mobile App | Flutter |
-| Backend | FastAPI |
-| Programming Language | Python |
-| AI Engine | Python |
-| Database | SQLite / PostgreSQL |
-| Authentication | Firebase Authentication |
-| Cloud Storage | Firebase Storage |
-| Maps | Google Maps API |
-| Version Control | Git & GitHub |
-| Deployment | Render |
+| 📱 Mobile App | **[Flutter](https://flutter.dev/)** |
+| 🎯 Programming Language | **[Dart](https://dart.dev/)** |
+| ⚙️ Backend | **[FastAPI](https://fastapi.tiangolo.com/)** |
+| 🐍 AI Engine | **[Python](https://www.python.org/)** |
+| 🗄️ Database | **[SQLite](https://sqlite.org/)** / **[PostgreSQL](https://www.postgresql.org/)** |
+| 🔐 Authentication | **[Firebase Authentication](https://firebase.google.com/products/auth)** |
+| ☁️ Cloud Storage | **[Firebase Storage](https://firebase.google.com/products/storage)** |
+| 🗺️ Maps | **[Google Maps Platform](https://developers.google.com/maps)** |
+| 🔄 Version Control | **[Git](https://git-scm.com/)** & **[GitHub](https://github.com/)** |
+| 🚀 Deployment | **[Render](https://render.com/)** |
 
 ---
 # 🏗️ Architecture
