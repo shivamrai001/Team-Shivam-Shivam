@@ -1,19 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from ..database import get_db
-from .. import crud, schemas, models
-from ..auth import get_current_user
+from database import get_db
+import crud
+import schemas
+import models
+from auth import get_current_user
 
 router = APIRouter(
     prefix="/complaints",
     tags=["Complaints"]
 )
-
-
-# =====================================================
-# Create Complaint
-# =====================================================
 
 @router.post("/", response_model=schemas.ComplaintResponse)
 def create_complaint(
@@ -21,30 +18,18 @@ def create_complaint(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-
     return crud.create_complaint(
         db=db,
         complaint=complaint,
         user_id=current_user.id
     )
 
-
-# =====================================================
-# Get All Complaints
-# =====================================================
-
 @router.get("/", response_model=list[schemas.ComplaintResponse])
 def get_all_complaints(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-
     return crud.get_complaints(db)
-
-
-# =====================================================
-# Get Complaint By ID
-# =====================================================
 
 @router.get("/{complaint_id}", response_model=schemas.ComplaintResponse)
 def get_single_complaint(
@@ -52,24 +37,13 @@ def get_single_complaint(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-
-    complaint = crud.get_complaint(
-        db,
-        complaint_id
-    )
-
+    complaint = crud.get_complaint(db, complaint_id)
     if complaint is None:
         raise HTTPException(
             status_code=404,
             detail="Complaint not found"
         )
-
     return complaint
-
-
-# =====================================================
-# Update Complaint
-# =====================================================
 
 @router.put("/{complaint_id}", response_model=schemas.ComplaintResponse)
 def update_complaint(
@@ -78,25 +52,13 @@ def update_complaint(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-
-    updated = crud.update_complaint(
-        db,
-        complaint_id,
-        complaint
-    )
-
+    updated = crud.update_complaint(db, complaint_id, complaint)
     if updated is None:
         raise HTTPException(
             status_code=404,
             detail="Complaint not found"
         )
-
     return updated
-
-
-# =====================================================
-# Delete Complaint
-# =====================================================
 
 @router.delete("/{complaint_id}")
 def delete_complaint(
@@ -104,42 +66,20 @@ def delete_complaint(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-
-    deleted = crud.delete_complaint(
-        db,
-        complaint_id
-    )
-
+    deleted = crud.delete_complaint(db, complaint_id)
     if deleted is None:
         raise HTTPException(
             status_code=404,
             detail="Complaint not found"
         )
-
-    return {
-        "message": "Complaint deleted successfully"
-    }
-
-
-# =====================================================
-# Logged-in User Complaints
-# =====================================================
+    return {"message": "Complaint deleted successfully"}
 
 @router.get("/my/list", response_model=list[schemas.ComplaintResponse])
 def my_complaints(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-
-    return crud.get_user_complaints(
-        db,
-        current_user.id
-    )
-
-
-# =====================================================
-# Update Complaint Status (Admin)
-# =====================================================
+    return crud.get_user_complaints(db, current_user.id)
 
 @router.put("/{complaint_id}/status")
 def update_status(
@@ -148,19 +88,12 @@ def update_status(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user)
 ):
-
-    complaint = crud.update_complaint_status(
-        db,
-        complaint_id,
-        status.status
-    )
-
+    complaint = crud.update_complaint_status(db, complaint_id, status.status)
     if complaint is None:
         raise HTTPException(
             status_code=404,
             detail="Complaint not found"
         )
-
     return {
         "message": "Status updated successfully",
         "status": complaint.status
