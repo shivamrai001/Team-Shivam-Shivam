@@ -588,7 +588,7 @@ Useful references used during development:
 
 | 👤 Member | 🎓 Registration No. | 💼 Role |
 |-----------|---------------------|----------|
-| **Shivam Rai** | *(Add Registration No.)* | **Team Lead & Project Coordinator** |
+| **Shivam Rai** | **25BAI11241** | **Team Lead & Project Coordinator** |
 | **Mayank Kumar** | **25BCE10023** | **AI & Backend Development** |
 | **Sagar Patel** | **25BCE11092** | **Testing & Documentation** |
 | **Yash Kumar** | **25BCE11106** | **Flutter Development** |
