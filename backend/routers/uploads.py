@@ -9,20 +9,16 @@ router = APIRouter(
     tags=["Upload"]
 )
 
-UPLOAD_FOLDER = "backend/upload"
+# Relative to execution directory
+UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-try:
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-except OSError:
-    pass
 
 # ==========================================
 # Upload Image
 # ==========================================
-
 @router.post("/image")
 async def upload_image(file: UploadFile = File(...)):
-
     allowed_extensions = ["jpg", "jpeg", "png"]
 
     if not file.filename:
@@ -34,21 +30,15 @@ async def upload_image(file: UploadFile = File(...)):
     extension = file.filename.split(".")[-1].lower()
 
     if extension not in allowed_extensions:
-
         raise HTTPException(
             status_code=400,
             detail="Only JPG, JPEG and PNG images are allowed."
         )
 
     filename = f"{uuid.uuid4()}.{extension}"
-
-    filepath = os.path.join(
-        UPLOAD_FOLDER,
-        filename
-    )
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
 
     with open(filepath, "wb") as buffer:
-
         shutil.copyfileobj(file.file, buffer)
 
     return {
@@ -60,17 +50,13 @@ async def upload_image(file: UploadFile = File(...)):
 # ==========================================
 # View Image
 # ==========================================
-
 @router.get("/{filename}")
 def get_image(filename: str):
-
-    filepath = os.path.join(
-        UPLOAD_FOLDER,
-        filename
-    )
+    # FIXED: Sanitized filename to prevent path traversal attack
+    safe_filename = os.path.basename(filename)
+    filepath = os.path.join(UPLOAD_FOLDER, safe_filename)
 
     if not os.path.exists(filepath):
-
         raise HTTPException(
             status_code=404,
             detail="Image not found."
@@ -82,17 +68,13 @@ def get_image(filename: str):
 # ==========================================
 # Delete Image
 # ==========================================
-
 @router.delete("/{filename}")
 def delete_image(filename: str):
-
-    filepath = os.path.join(
-        UPLOAD_FOLDER,
-        filename
-    )
+    # FIXED: Sanitized filename
+    safe_filename = os.path.basename(filename)
+    filepath = os.path.join(UPLOAD_FOLDER, safe_filename)
 
     if not os.path.exists(filepath):
-
         raise HTTPException(
             status_code=404,
             detail="Image not found."
