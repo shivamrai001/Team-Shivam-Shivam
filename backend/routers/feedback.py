@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from ..database import get_db
-from .. import models, schemas
+from database import get_db
+import crud
+import schemas
 
 router = APIRouter(
     prefix="/feedback",
@@ -18,10 +19,7 @@ def create_feedback(
     feedback: schemas.FeedbackCreate,
     db: Session = Depends(get_db)
 ):
-
-    complaint = db.query(models.Complaint).filter(
-        models.Complaint.id == feedback.complaint_id
-    ).first()
+    complaint = crud.get_complaint(db, feedback.complaint_id)
 
     if complaint is None:
         raise HTTPException(
@@ -29,15 +27,7 @@ def create_feedback(
             detail="Complaint not found"
         )
 
-    new_feedback = models.Feedback(
-        complaint_id=feedback.complaint_id,
-        rating=feedback.rating,
-        feedback=feedback.feedback
-    )
-
-    db.add(new_feedback)
-    db.commit()
-    db.refresh(new_feedback)
+    new_feedback = crud.create_feedback(db, feedback)
 
     return {
         "message": "Feedback submitted successfully",
@@ -49,10 +39,8 @@ def create_feedback(
 # Get All Feedback
 # ------------------------------------
 @router.get("/")
-def get_all_feedback(
-    db: Session = Depends(get_db)
-):
-    return db.query(models.Feedback).all()
+def get_all_feedback(db: Session = Depends(get_db)):
+    return crud.get_all_feedback(db)
 
 
 # ------------------------------------
@@ -63,10 +51,7 @@ def get_feedback(
     feedback_id: int,
     db: Session = Depends(get_db)
 ):
-
-    feedback = db.query(models.Feedback).filter(
-        models.Feedback.id == feedback_id
-    ).first()
+    feedback = crud.get_feedback(db, feedback_id)
 
     if feedback is None:
         raise HTTPException(
@@ -85,19 +70,13 @@ def delete_feedback(
     feedback_id: int,
     db: Session = Depends(get_db)
 ):
-
-    feedback = db.query(models.Feedback).filter(
-        models.Feedback.id == feedback_id
-    ).first()
+    feedback = crud.delete_feedback(db, feedback_id)
 
     if feedback is None:
         raise HTTPException(
             status_code=404,
             detail="Feedback not found"
         )
-
-    db.delete(feedback)
-    db.commit()
 
     return {
         "message": "Feedback deleted successfully"
