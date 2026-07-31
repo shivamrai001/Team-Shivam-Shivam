@@ -2,7 +2,8 @@ import os
 
 # Database Configuration
 # Change this line in backend/config.py:
-DATABASE_URL = os.getenv("DATABASE_URL") or "sqlite:///./urbansense.db"
+# Database Configuration
+DATABASE_URL = (os.getenv("DATABASE_URL") or "").strip() or "sqlite:///./urbansense.db"
 
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
