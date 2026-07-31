@@ -1,85 +1,133 @@
-# 🌆 UrbanSense AI – Intelligent Smart City Complaint Management System
 
+<p align="center">
 
-## 📌 Overview
+# 🌆 Welcome to UrbanSense AI
 
-**UrbanSense AI** is an AI-powered Smart City Complaint Management System designed to simplify how citizens report civic issues and how government authorities resolve them. Citizens can report problems such as potholes, garbage accumulation, water leakage, broken streetlights, drainage issues, and more through a mobile application.
+### Intelligent Smart City Complaint Management System
 
-The platform automatically analyzes every complaint using Artificial Intelligence, categorizes it, assigns a priority level, detects duplicate or spam complaints, validates uploaded images, and routes the complaint to the appropriate department. Government officials can monitor complaints through a centralized dashboard with maps and analytics, enabling faster and more transparent grievance redressal.
+**UrbanSense AI** leverages Artificial Intelligence to simplify how citizens report civic issues and enables government authorities to resolve them faster through automated analysis, smart routing, and real-time monitoring.
+
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github)
+
+</p>
+
+---
+
+# 📖 Table of Contents
+
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [AI Capabilities](#-ai-capabilities)
+- [Technology Used](#-technology-used)
+- [System Workflow](#-system-workflow)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [API Highlights](#-api-highlights)
+- [Project Highlights](#-project-highlights)
+- [Future Enhancements](#-future-enhancements)
+- [Team](#-team)
+- [License](#-license)
+
+---
+
+# 📌 Overview
+
+UrbanSense AI is an intelligent complaint management platform built to bridge the gap between citizens and government authorities.
+
+Citizens can report civic issues such as:
+
+- 🛣️ Potholes
+- 💧 Water Leakage
+- 🗑️ Garbage Overflow
+- 💡 Broken Streetlights
+- 🚰 Drainage Issues
+- 🚦 Traffic Problems
+- 🏙️ Other Municipal Complaints
+
+Every complaint is automatically analyzed using AI to determine its category, urgency, authenticity, and responsible department, allowing authorities to respond more efficiently while maintaining complete transparency.
 
 ---
 
 # 🚀 Key Features
 
-### 👤 Citizen Module
+## 👤 Citizen Module
 
-* Secure user registration and login
-* Report complaints with description, image, and GPS location
-* Track complaint status in real time
-* View complaint history
+- Secure Registration & Login
+- Complaint Submission
+- GPS Location Capture
+- Image Upload
+- Real-Time Complaint Tracking
+- Complaint History
 
-### 🤖 AI-Powered Complaint Analysis
+---
 
-* Complaint Classification
-* Priority Prediction
-* Spam Detection
-* Duplicate Complaint Detection
-* Image Validation
-* Trust Score Generation
-* Automatic Department Assignment
+## 🤖 AI Processing Engine
 
-### 🏛 Government Dashboard
+- Complaint Classification
+- Priority Prediction
+- Spam Detection
+- Duplicate Complaint Detection
+- Image Validation
+- Trust Score Generation
+- Automatic Department Recommendation
 
-* Complaint monitoring
-* Status management
-* Department-wise filtering
-* Complaint analytics
-* Performance insights
+---
 
-### 🗺 Interactive Maps
+## 🏛 Government Dashboard
 
-* GPS-based complaint locations
-* Priority-colored map markers
-* Location visualization for authorities
+- Complaint Monitoring
+- Department-wise Filtering
+- Complaint Status Updates
+- Interactive Maps
+- Performance Analytics
+- Resolution Insights
 
-### 📊 Analytics
+---
 
-* Total complaints
-* Pending vs Resolved complaints
-* Category-wise statistics
-* Priority distribution
-* Department performance
-* Real-time dashboard
+## 📊 Analytics
+
+- Total Complaints
+- Pending vs Resolved
+- Category Statistics
+- Priority Distribution
+- Department Performance
+- Real-Time Dashboard
 
 ---
 
 # 🧠 AI Capabilities
 
-The AI module performs:
+Our AI engine automates the complaint management process by performing:
 
-* ✅ Complaint Classification
-* ✅ Priority Detection
-* ✅ Duplicate Detection
-* ✅ Spam Detection
-* ✅ Image Validation
-* ✅ Trust Score Calculation
-* ✅ Department Recommendation
+- ✅ Complaint Classification
+- ✅ Priority Prediction
+- ✅ Duplicate Detection
+- ✅ Spam Detection
+- ✅ Image Validation
+- ✅ Trust Score Calculation
+- ✅ Department Recommendation
 
 ---
 
-# 🛠 Tech Stack
+# 💻 Technology Used
 
-| Component       | Technology              |
-| --------------- | ----------------------- |
-| Mobile App      | Flutter                 |
-| Backend         | FastAPI (Python)        |
-| AI Engine       | Python                  |
-| Database        | SQLite / PostgreSQL     |
-| Maps            | Google Maps API         |
-| Authentication  | Firebase Authentication |
-| Image Storage   | Firebase Storage        |
-| Deployment      | Render                  |
-| Version Control | Git & GitHub            |
+| Category | Technology |
+|------------|------------|
+| Mobile Application | Flutter |
+| Programming Language | Dart |
+| Backend Framework | FastAPI |
+| Backend Language | Python |
+| Artificial Intelligence | Python |
+| Database | SQLite / PostgreSQL |
+| Authentication | Firebase Authentication |
+| Cloud Storage | Firebase Storage |
+| Maps & Location | Google Maps API |
+| Deployment | Render |
+| Version Control | Git & GitHub |
 
 ---
 
@@ -87,44 +135,70 @@ The AI module performs:
 
 ```text
 Citizen
-    │
-    ▼
+   │
+   ▼
 Submit Complaint
 (Text + Image + GPS)
-    │
-    ▼
+   │
+   ▼
 Flutter Mobile App
-    │
-    ▼
+   │
+   ▼
 FastAPI Backend
-    │
-    ▼
+   │
+   ▼
 AI Processing
-• Category Classification
-• Priority Prediction
-• Spam Detection
-• Duplicate Detection
-• Image Validation
-• Trust Score
-• Department Assignment
-    │
-    ▼
+ ├── Complaint Classification
+ ├── Priority Prediction
+ ├── Spam Detection
+ ├── Duplicate Detection
+ ├── Image Validation
+ ├── Trust Score Generation
+ └── Department Assignment
+   │
+   ▼
 Database
-    │
-    ├────────► Government Dashboard
-    │              │
-    │              ▼
-    │      Maps & Analytics
-    │
-    ▼
+   │
+   ├────────────► Government Dashboard
+   │                  │
+   │                  ▼
+   │          Maps & Analytics
+   │
+   ▼
 Citizen Tracks Complaint Status
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+UrbanSense-AI
+│
+├── backend/
+│   ├── app/
+│   ├── routes/
+│   ├── models/
+│   ├── database/
+│   ├── ai/
+│   └── main.py
+│
+├── frontend/
+│   ├── lib/
+│   ├── assets/
+│   ├── widgets/
+│   └── screens/
+│
+├── screenshots/
+├── README.md
+└── requirements.txt
 ```
 
 ---
 
 # 📦 Installation
 
-## Clone Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/shivamrai001/Team-Shivam-Shivam.git
@@ -161,37 +235,38 @@ flutter run
 
 # 📡 API Highlights
 
-* User Registration & Login
-* Create Complaint
-* Fetch Complaints
-* Update Complaint Status
-* Dashboard Statistics
-* Analytics
-* Maps Integration
+- User Registration & Authentication
+- Create Complaint
+- Fetch Complaint History
+- Update Complaint Status
+- Dashboard Statistics
+- Analytics APIs
+- Google Maps Integration
 
 ---
 
 # 🌟 Project Highlights
 
-* AI-assisted complaint management
-* Faster complaint resolution
-* Transparent complaint tracking
-* Smart department routing
-* Interactive GIS visualization
-* Real-time analytics dashboard
-* Scalable and modular architecture
+- AI-assisted complaint analysis
+- Intelligent department routing
+- Faster complaint resolution
+- Transparent complaint tracking
+- Interactive GIS visualization
+- Real-time analytics dashboard
+- Scalable architecture
+- Modular backend
 
 ---
 
-# 🎯 Future Enhancements
+# 🚀 Future Enhancements
 
-* Multilingual support
-* Push notifications
-* Predictive analytics
-* IoT sensor integration
-* Voice-based complaint registration
-* Offline complaint submission
-* Machine learning model improvements
+- 🌍 Multilingual Support
+- 🔔 Push Notifications
+- 📈 Predictive Analytics
+- 📡 IoT Sensor Integration
+- 🎙️ Voice-based Complaint Registration
+- 📱 Offline Complaint Submission
+- 🤖 Improved Machine Learning Models
 
 ---
 
@@ -199,20 +274,26 @@ flutter run
 
 **Team Shivam**
 
-* AI & Backend Development
-* Flutter Mobile Application
-* Dashboard & Analytics
-* Database Integration
-* API Development
+- AI Development
+- Backend Development
+- Flutter Mobile Application
+- Dashboard Development
+- Database Integration
+- API Development
 
 ---
 
 # 📜 License
 
-This project is developed for educational purposes and hackathon participation.
+This project was developed for educational purposes and hackathon participation.
 
 ---
 
 <p align="center">
-  <b>⭐ If you found this project useful, consider giving it a Star on GitHub! ⭐</b>
+
+### ⭐ If you found this project useful, consider giving it a Star on GitHub!
+
+**Built with ❤️ by Team Shivam**
+
 </p>
+````
