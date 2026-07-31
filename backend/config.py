@@ -1,4 +1,4 @@
-DATABASE_URL = "sqlite:///./urban.db"
+DATABASE_URL = "sqlite:////tmp/urban.db"
 
 SECRET_KEY = "UrbanSense_AI_Secret_Key_2026"
 
