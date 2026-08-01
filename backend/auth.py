@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 import crud
-from .security import verify_password
-from .config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from security import verify_password
+from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
