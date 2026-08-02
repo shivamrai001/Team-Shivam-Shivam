@@ -28,9 +28,8 @@ class UrbanSenseApp extends StatelessWidget {
           secondary: Color(0xFF81C784),
           surface: Colors.white,
           onSurface: Color(0xFF334155),
-          background: Color(0xFFF8FAFC),
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: Colors.white,
           elevation: 0,
           shape: RoundedRectangleBorder(
