@@ -1,75 +1,98 @@
 import 'package:flutter/material.dart';
-import '../services/api_service.dart';
-import 'home_screen.dart';
+// Make sure this import matches your project structure:
+// import 'package:urbansense_flutter_frontend_ultimate/services/api_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  // Pre-filled with your test credentials
+  final TextEditingController _emailController = TextEditingController(text: 'm@gmail.com');
+  final TextEditingController _passwordController = TextEditingController(text: '1234');
+  
   bool _isLoading = false;
-  String _errorMessage = '';
 
   void _handleLogin() async {
-    setState(() { _isLoading = true; _errorMessage = ''; });
-    
-    // Simulate a network delay for the loading animation
-    await Future.delayed(const Duration(seconds: 1));
-    
-    // Bypass backend check: force success to true so you can see the UI
-    bool success = true; 
-    
-    setState(() { _isLoading = false; });
-    
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Calls your live Render backend through ApiService
+    bool success = await ApiService.login(
+      _emailController.text.trim(),
+      _passwordController.text.trim(),
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
     if (success) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login successful!')),
+      );
+      // TODO: Add your navigation code here to go to the next screen
     } else {
-      setState(() { _errorMessage = 'Authentication failed. Please check credentials.'; });
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login failed. Check Render logs.')),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32.0),
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 400),
-            padding: const EdgeInsets.all(40),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(32),
-              boxShadow: [
-                BoxShadow(color: const Color(0xFF4FD1C5).withOpacity(0.1), blurRadius: 40, offset: const Offset(0, 20)),
-              ],
-            ),
+      appBar: AppBar(
+        title: const Text('UrbanSense AI - Login'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Center(
+          child: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: const BoxDecoration(color: Color(0xFFF0FDF4), shape: BoxShape.circle),
-                  child: const Icon(Icons.spa_rounded, size: 48, color: Color(0xFF4FD1C5)),
+                const Text(
+                  'Welcome Back',
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 32),
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  obscureText: true,
                 ),
                 const SizedBox(height: 24),
-                const Text('Welcome', textAlign: TextAlign.center, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF1E293B))),
-                const SizedBox(height: 8),
-                const Text('Sign in to continue to UrbanSense', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16)),
-                const SizedBox(height: 40),
-                TextField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email', prefixIcon: Icon(Icons.mail_outline))),
-                const SizedBox(height: 20),
-                TextField(controller: _passwordController, obscureText: true, decoration: const InputDecoration(labelText: 'Password', prefixIcon: Icon(Icons.lock_outline))),
-                if (_errorMessage.isNotEmpty) ...[const SizedBox(height: 16), Text(_errorMessage, style: const TextStyle(color: Colors.redAccent), textAlign: TextAlign.center)],
-                const SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: _isLoading ? null : _handleLogin,
-                  child: _isLoading ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2)) : const Text('Sign In', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: _isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : ElevatedButton(
+                          onPressed: _handleLogin,
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
                 ),
               ],
             ),
