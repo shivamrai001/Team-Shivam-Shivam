@@ -1,4 +1,3 @@
-import 'package:flutter/material.directive.dart'; // standard package import below
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatelessWidget {
